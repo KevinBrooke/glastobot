@@ -11,16 +11,16 @@ incognito = True
 disablejs = False
 
 # disable images for faster loading?
-disableimages=True
+disableimages = True
 
 # change cache size?
-cache=4096
+cache = 4096
 
 # try a proxy with "8.8.8.8:88"
-proxy=None
+proxy = None
 
 # run without browser - kind of pointless but faster.
-headless=False
+headless = False
 
 # refresh rate - seconds
 refreshrate = 0.01
@@ -36,18 +36,30 @@ DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020-tick
 PHRASES_TO_CHECK = [gl.Twenty20.REGISTRATION_PHRASE]
 
 # first is lead booker
-REG_DETAILS=[
+REG_DETAILS = [
     {
-        'number': "123", 
-        'postcode': "ABC DEF"
+        'number': "regnumber1",
+        'postcode': "regpostcode1"
     },
     {
-        'number': "456", 
-        'postcode': "ABC5 JEF"
+        'number': "regnumber2",
+        'postcode': "regpostcode2"
     },
     {
-        'number': "789", 
-        'postcode': "JL14 DEF"
+        'number': "regnumber3",
+        'postcode': "regpostcode3"
+    },
+    {
+        'number': "regnumber4",
+        'postcode': "regpostcode4"
+    },
+    {
+        'number': "regnumber5",
+        'postcode': "regpostcode5"
+    },
+    {
+        'number': "regnumber6",
+        'postcode': "regpostcode6"
     }
 ]
 
@@ -57,7 +69,8 @@ if len(REG_DETAILS) == 0:
 
 if len(REG_DETAILS) > 6:
     raise RuntimeError(
-        "Cannot accept more than 1 + 5 registration details!")
+        "Cannot accept more than 6 registration details!")
+
 
 def attemptconnection(client, url):
     if client.establishconnection(url, phrases_to_check=PHRASES_TO_CHECK):
@@ -96,12 +109,13 @@ def attemptconnection(client, url):
     # try again??
     # attemptconnection(client, url)
 
+
 # main
 s = gl.Service(gl.DRIVER_PATH)
-c = gl.Twenty20(s, timeout=4, refreshrate=refreshrate, verbose=False, 
-    disablejs=disablejs, incognito=incognito, disableimages=disableimages, 
-    cache=cache, headless=headless, proxy=proxy)
+c = gl.Twenty20(s, timeout=4, refreshrate=refreshrate, verbose=False,
+                disablejs=disablejs, incognito=incognito, disableimages=disableimages,
+                cache=cache, headless=headless, proxy=proxy)
 attemptconnection(c, DEPOSIT_20_URL)
 
 # backup sleep 
-time.sleep(1000000) # Hack - leave it open to fill in details
+time.sleep(1000000)  # Hack - leave it open to fill in details
